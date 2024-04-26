@@ -2,6 +2,7 @@ using MMAR.BaseClasses;
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 
 namespace MMAR.ExtendedClasses
@@ -13,17 +14,9 @@ namespace MMAR.ExtendedClasses
         /// </summary>
         float downloadProgress = 0;
         /// <summary>
-        /// If download completed
-        /// </summary>
-        bool downloadCompleted = true;
-        /// <summary>
         /// Last download url
         /// </summary>
         string lastDownloadUrl = "";
-        /// <summary>
-        /// If download failed
-        /// </summary>
-        bool downloadFailed = false;
         /// <summary>
         /// download data handler
         /// </summary>
@@ -33,6 +26,8 @@ namespace MMAR.ExtendedClasses
         /// </summary>
         /// <param name="DownloadUrl">Download url</param>
         /// <returns></returns>
+        /// 
+        public UnityEvent downloadCompleted, downloadFailed;
         IEnumerator startDownload(string DownloadUrl)
         {
             DebugLog("Downloading " + DownloadUrl);
@@ -49,14 +44,12 @@ namespace MMAR.ExtendedClasses
             DebugLog("Done downloading");
             if (www.result != UnityWebRequest.Result.Success)
             {
-                downloadFailed = true;
-                downloadCompleted = true;
+                downloadFailed.Invoke();
             }
             else
             {
                 downloadHandler = www.downloadHandler;
-                downloadFailed = false;
-                downloadCompleted = true;
+                downloadCompleted.Invoke();
             }
         }
         /// <summary>
