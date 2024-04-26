@@ -22,13 +22,21 @@ namespace MMAR.ExtendedClasses
         /// </summary>
         DownloadHandler downloadHandler;
         /// <summary>
+        /// Download events
+        /// </summary>
+        public UnityEvent downloadCompleted, downloadFailed;
+
+        protected void Download(string url)
+        {
+            StartCoroutine(DownloadIEnumerator(url));
+        }
+        /// <summary>
         /// Download starting IEnumerator
         /// </summary>
         /// <param name="DownloadUrl">Download url</param>
         /// <returns></returns>
-        /// 
-        public UnityEvent downloadCompleted, downloadFailed;
-        protected IEnumerator startDownload(string DownloadUrl)
+        
+        protected IEnumerator DownloadIEnumerator(string DownloadUrl)
         {
             DebugLog("Downloading " + DownloadUrl);
             lastDownloadUrl = DownloadUrl;
