@@ -12,11 +12,11 @@ namespace MMAR.ExtendedClasses
         /// <summary>
         /// Return download progress
         /// </summary>
-        float downloadProgress = 0;
+        public float downloadProgress = 0;
         /// <summary>
         /// Last download url
         /// </summary>
-        string lastDownloadUrl = "";
+        public string lastDownloadUrl = "";
         /// <summary>
         /// download data handler
         /// </summary>
@@ -28,7 +28,7 @@ namespace MMAR.ExtendedClasses
         /// <returns></returns>
         /// 
         public UnityEvent downloadCompleted, downloadFailed;
-        IEnumerator startDownload(string DownloadUrl)
+        protected IEnumerator startDownload(string DownloadUrl)
         {
             DebugLog("Downloading " + DownloadUrl);
             lastDownloadUrl = DownloadUrl;
@@ -55,7 +55,7 @@ namespace MMAR.ExtendedClasses
         /// <summary>
         /// Get download result as text
         /// </summary>
-        string downloadedText
+        protected string downloadedText
         {
             get { return downloadHandler.text; }
         }
@@ -63,7 +63,7 @@ namespace MMAR.ExtendedClasses
         /// Save downloaded file
         /// </summary>
         /// <param name="filePath">File path</param>
-        void SaveDownloadedFile(string filePath)
+        protected void SaveDownloadedFile(string filePath)
         {
             File.WriteAllBytes(filePath, downloadHandler.data);
         }
