@@ -13,13 +13,26 @@ namespace MMAR.ExtendedClasses
         /// </summary>
         float downloadProgress = 0;
         /// <summary>
-        /// If download progress completed
+        /// If download completed
         /// </summary>
         bool downloadCompleted = true;
+        /// <summary>
+        /// Last download url
+        /// </summary>
         string lastDownloadUrl = "";
+        /// <summary>
+        /// If download failed
+        /// </summary>
         bool downloadFailed = false;
+        /// <summary>
+        /// download data handler
+        /// </summary>
         DownloadHandler downloadHandler;
-        
+        /// <summary>
+        /// Download starting IEnumerator
+        /// </summary>
+        /// <param name="DownloadUrl">Download url</param>
+        /// <returns></returns>
         IEnumerator startDownload(string DownloadUrl)
         {
             DebugLog("Downloading " + DownloadUrl);
@@ -46,10 +59,17 @@ namespace MMAR.ExtendedClasses
                 downloadCompleted = true;
             }
         }
+        /// <summary>
+        /// Get download result as text
+        /// </summary>
         string downloadedText
         {
             get { return downloadHandler.text; }
         }
+        /// <summary>
+        /// Save downloaded file
+        /// </summary>
+        /// <param name="filePath">File path</param>
         void SaveDownloadedFile(string filePath)
         {
             File.WriteAllBytes(filePath, downloadHandler.data);
